@@ -1,6 +1,3 @@
-# Hangman-CLI
-Coding Boot Camp Week 11 Homework. Hangman game with a command line interface.
-
 // need fs, inquirer
 
 // Word is an object. Properties are word, number of letters.
@@ -40,3 +37,11 @@ Coding Boot Camp Week 11 Homework. Hangman game with a command line interface.
 // end play again loop
 
 // end game
+
+
+var Word = require("./Word.js");
+
+
+var newWord = new Word("Hello");
+
+console.log(newWord);

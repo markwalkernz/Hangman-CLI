@@ -1,0 +1,19 @@
+{
+  "name": "hangman-cli",
+  "version": "1.0.0",
+  "description": "hangman game",
+  "main": "Hangman.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markwalkernz/Hangman-CLI.git"
+  },
+  "author": "Mark Walker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/markwalkernz/Hangman-CLI/issues"
+  },
+  "homepage": "https://github.com/markwalkernz/Hangman-CLI#readme"
+}
