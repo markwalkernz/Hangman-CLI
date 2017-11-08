@@ -1,53 +1,69 @@
+// Coding Boot Camp Week 11 homework. Hangman game using constructors and node.
+
+// required files and node packages
 var Word = require("./Word.js");
 var inquirer = require("inquirer");
 
-var currentWord = new Word("HELLO WORLD");
+// array of words to use for the hangman game
+var wordArray = ["MOONLIGHT", "SPOTLIGHT", "BIRDMAN", "TWELVE YEARS A SLAVE", "ARGO", "THE ARTIST", "THE KINGS SPEECH", "THE HURT LOCKER", "SLUMDOG MILLIONAIRE", "NO COUNTRY FOR OLD MEN", "THE DEPARTED", "CRASH", "MILLION DOLLAR BABY", "THE LORD OF THE RINGS", "CHICAGO", "A BEAUTIFUL MIND", "GLADIATOR", "AMERICAN BEAUTY", "SHAKESPEARE IN LOVE", "TITANIC", "THE ENGLISH PATIENT", "BRAVEHEART", "FORREST GUMP", "SCHINDLERS LIST", "UNFORGIVEN", "THE SILENCE OF THE LAMBS", "DANCES WITH WOLVES"];
 
-var gameOver = false;
+// reset the game variables and start a new game
+function playGame(){
 
-currentWord.updateGuess();
+	var randomNumber = Math.floor(Math.random()*wordArray.length);
 
-// play a round of the game, including recursion at the end if the word hasn't been guessed
-function playRound() {
-	inquirer
-	.prompt(
-	  {
-	    type: 'input',
-	    name: 'userLetter',
-	    message: 'Please guess a letter:'
-	  })
-	.then(function(answer) {
-		
-		// game over function
-		function gameOver() {
-			inquirer
-			.prompt(
-			  {
-			    type: 'input',
-			    name: 'playAgain',
-			    message: 'Would you like to play again [y/n]?',
-			    choices: ['y','n']
-			  })
-			.then(function(answer) {
-				if(answer.playAgain === 'y') {
-					console.log("Yes selected");
-				};
-			});
-		}; // end of game over function
+	var currentWord = new Word(wordArray[randomNumber]);
 
-		// make a guess
-		currentWord.makeGuess(answer.userLetter);
+	var gameOver = false;
 
-		// if the whole word has been guessed then game over else play another round
-		if (currentWord.guessedWord === currentWord.inputWord) {
-			console.log("Congratulations, you've guessed the word!");
-			gameOver();
-		}
-		else {
-			playRound();
-		};
-	});
+	// play a round of the game, including recursion at the end if the word hasn't been guessed
+	function playRound() {
+		inquirer
+		.prompt(
+		  {
+		    type: 'input',
+		    name: 'userLetter',
+		    message: 'Please guess a letter:'
+		  })
+		.then(function(answer) {
+			
+			// game over function
+			function gameOver() {
+				inquirer
+				.prompt(
+				  {
+				    type: 'input',
+				    name: 'playAgain',
+				    message: 'Would you like to play again [y/n]?',
+				    choices: ['y','n']
+				  })
+				.then(function(answer) {
+					if(answer.playAgain === 'y') {
+						playGame();
+					};
+				});
+			}; // end of game over function
+
+			// make a guess
+			currentWord.makeGuess(answer.userLetter);
+
+			// if the whole word has been guessed then game over else play another round
+			if (currentWord.guessedWord === currentWord.inputWord) {
+				console.log("Congratulations, you've guessed the word!");
+				gameOver();
+			}
+			else {
+				playRound();
+			};
+		});
+	}; // end of playRound function
+
+	currentWord.updateGuess();
+
+	// play the first round
+	playRound();
+
 }; // end of playGame function
 
-
-playRound();
+// call the first game
+playGame();

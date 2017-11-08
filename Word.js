@@ -20,6 +20,7 @@ var Word = function(inputWord) {
 	// method to make a guess
 	this.makeGuess = function(userGuess) {
 		var matchingLetter = false;
+		var alreadyGuessed = false;
 		var letterArrayLength = this.letterArray.length;
 
 		for (var i = 0; i < letterArrayLength; i++) {
@@ -31,7 +32,7 @@ var Word = function(inputWord) {
 
 				// if letter has already been guessed
 				if(this.letterArray[i].guessed) {
-					console.log("You've already guessed " + userGuess + ", please try again");
+					alreadyGuessed = true;
 				}
 
 				// if letter has not already been guessed
@@ -52,6 +53,11 @@ var Word = function(inputWord) {
 			newLetter.inTheWord = false;
 			newLetter.guessed = true;
 			console.log("Sorry, that letter is not in the word.");
+		};
+
+		// if alreadyGuessed, display message to user
+		if(alreadyGuessed) {
+			console.log("You've already guessed " + userGuess + ", please try again");
 		};
 
 		// update the word that has been guessed with blanks and guessed letters
