@@ -7,7 +7,7 @@ var Letter = function(inputLetter,position) {
 	this.guessed = false;		//true if the letter has been guessed before
 
 	// a space is automatically set to guessed = true
-	if (inputLetter == " ") {this.guessed = true};
+	if (inputLetter === " ") {this.guessed = true};
 
 }; // end of Letter constructor
 

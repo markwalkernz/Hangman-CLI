@@ -42,6 +42,10 @@
 var Word = require("./Word.js");
 
 
-var newWord = new Word("Hello");
+var currentWord = new Word("hello world");
 
-console.log(newWord);
+console.log(currentWord);
+
+currentWord.displayWord();
+currentWord.makeGuess("h");
+currentWord.displayWord();
