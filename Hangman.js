@@ -1,51 +1,53 @@
-// need fs, inquirer
-
-// Word is an object. Properties are word, number of letters.
-// Each letter is an object. Properties are letter, in the word (T/F), guessed (T/F).
-
-// start message. Start Y/N?
-
-// if no, play again is false
-
-// loop while play again is true
-
-	// select random word from array.
-	// Create word object and solution object.
-	// initialise guesses array.
-	// initialise remaining guesses counter.
-
-	// loop
-
-		// User guesses a letter
-
-		// if letter already in guesses array, display "already guessed, try again"
-
-		// if letter not guessed, create a letter object and add to guesses array.
-
-			// if letter in the word, display "correct". Change guessed to true, update solution.
-
-			// if letter not in the word, display "incorrect". Reduce remaining guesses by one.
-
-	// until word is guessed or remaining guesses = 0
-
-	// if word is guessed, congratulations!
-
-	// if remaining guesses = 0, sorry.
-
-	// play again? (T/F)
-
-// end play again loop
-
-// end game
-
-
 var Word = require("./Word.js");
+var inquirer = require("inquirer");
+
+var currentWord = new Word("HELLO WORLD");
+
+var gameOver = false;
+
+currentWord.updateGuess();
+
+// play a round of the game, including recursion at the end if the word hasn't been guessed
+function playRound() {
+	inquirer
+	.prompt(
+	  {
+	    type: 'input',
+	    name: 'userLetter',
+	    message: 'Please guess a letter:'
+	  })
+	.then(function(answer) {
+		
+		// game over function
+		function gameOver() {
+			inquirer
+			.prompt(
+			  {
+			    type: 'input',
+			    name: 'playAgain',
+			    message: 'Would you like to play again [y/n]?',
+			    choices: ['y','n']
+			  })
+			.then(function(answer) {
+				if(answer.playAgain === 'y') {
+					console.log("Yes selected");
+				};
+			});
+		}; // end of game over function
+
+		// make a guess
+		currentWord.makeGuess(answer.userLetter);
+
+		// if the whole word has been guessed then game over else play another round
+		if (currentWord.guessedWord === currentWord.inputWord) {
+			console.log("Congratulations, you've guessed the word!");
+			gameOver();
+		}
+		else {
+			playRound();
+		};
+	});
+}; // end of playGame function
 
 
-var currentWord = new Word("hello world");
-
-console.log(currentWord);
-
-currentWord.displayWord();
-currentWord.makeGuess("h");
-currentWord.displayWord();
+playRound();
