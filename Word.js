@@ -19,16 +19,14 @@ var Word = function(inputWord) {
 
 	// method to make a guess
 	this.makeGuess = function(userGuess) {
-		var matchingLetter = false;
 		var alreadyGuessed = false;
+		var correctGuess = false;
 		var letterArrayLength = this.letterArray.length;
 
 		for (var i = 0; i < letterArrayLength; i++) {
 
-			// if userGuess matches an object in the letter array
+			// if userGuess matches the object in the letter array
 			if(userGuess.toUpperCase() === this.letterArray[i].letter) {
-
-				matchingLetter = true;
 
 				// if letter has already been guessed
 				if(this.letterArray[i].guessed) {
@@ -40,24 +38,30 @@ var Word = function(inputWord) {
 					// if letter is in the word
 					if(this.letterArray[i].inTheWord) {
 						this.letterArray[i].guessed = true;
-						console.log("Correct Guess!");
+						correctGuess = true;
 					};
 				};
 			};
 
 		}; // end loop through letterArray
 
-		// if matchingLetter is false, add the letter to the array and tell the user it is a wrong guess
-		if(!matchingLetter) {
+		// if not correct guess, add the letter to the array and tell the user it is a wrong guess
+		if(!correctGuess && !alreadyGuessed) {
 			var newLetter = new Letter(userGuess);
 			newLetter.inTheWord = false;
 			newLetter.guessed = true;
+			this.letterArray.push(newLetter);
 			console.log("Sorry, that letter is not in the word.");
 		};
 
-		// if alreadyGuessed, display message to user
+		// if already guessed, display message to user
 		if(alreadyGuessed) {
-			console.log("You've already guessed " + userGuess + ", please try again");
+			console.log("You've already guessed '" + userGuess + "', please try again");
+		};
+
+		// if correctGuess, display message to user
+		if(correctGuess) {
+			console.log("Correct!");
 		};
 
 		// update the word that has been guessed with blanks and guessed letters
@@ -71,17 +75,16 @@ var Word = function(inputWord) {
 
 		for (var i = 0; i < this.wordLength; i++) {
 			
-			// if the letter is in the word and guessed then display the letter else display _	
+			// if the letter is in the word and guessed then display the letter else display blank	
 			if (this.letterArray[i].inTheWord && this.letterArray[i].guessed) {
 				this.guessedWord += this.letterArray[i].letter;
-				//this.guessedWord += " ";
 			}
 			else {
-				this.guessedWord += "_";	
+				this.guessedWord += "-";	
 			};
 		};
 
-		console.log("\nWord is: " + this.guessedWord);
+		console.log("\nMovie Name: " + this.guessedWord);
 
 	}; // end of updateGuess method
 
