@@ -47,13 +47,19 @@ function playGame(){
 			// make a guess
 			currentWord.makeGuess(answer.userLetter);
 
-			// if the whole word has been guessed then game over else play another round
-			if (currentWord.guessedWord === currentWord.inputWord) {
-				console.log("Congratulations, you've guessed the word!");
-				gameOver();
-			}
+			// check if game over or play another round
+			if (currentWord.remainingGuesses == 0) {
+			 	console.log("Sorry, you have run out of guesses.")
+			 	gameOver();
+			 }
 			else {
-				playRound();
+				if (currentWord.guessedWord === currentWord.inputWord) {
+					console.log("Congratulations, you've guessed the word!");
+					gameOver();
+				}
+				else {
+					playRound();
+				};
 			};
 		});
 	}; // end of playRound function

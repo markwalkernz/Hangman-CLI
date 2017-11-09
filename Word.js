@@ -9,6 +9,7 @@ var Word = function(inputWord) {
 	this.wordLength = inputWord.length;		//the length of the word, including spaces, numbers etc
 	this.letterArray = [];					//an array of letters as objects
 	this.guessedWord = "";					//the word that the user has guessed, including blanks
+	this.remainingGuesses = 10;				//initial number of guesses
 
 	// put each letter of the word (including spaces) into letterArray as an object
 	for (var i = 0; i < inputWord.length; i++) {
@@ -54,7 +55,9 @@ var Word = function(inputWord) {
 			newLetter.inTheWord = false;
 			newLetter.guessed = true;
 			this.letterArray.push(newLetter);
+			this.remainingGuesses = this.remainingGuesses -1;
 			console.log("Sorry, that letter is not in the word.");
+			console.log("Remaining Guesses: " + this.remainingGuesses);
 		};
 
 		// if already guessed, display message to user
