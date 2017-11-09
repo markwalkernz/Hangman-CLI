@@ -1,6 +1,6 @@
 
 // constructor for the Letter object
-var Letter = function(inputLetter,position) {
+var Letter = function(inputLetter) {
 
 	this.letter = inputLetter;	//the letter
 	this.inTheWord = true;		//true if the letter is in the word

@@ -5,7 +5,7 @@ var Letter = require("./Letter.js");
 // constructor for the Word object
 var Word = function(inputWord) {
 
-	this.inputWord = inputWord;				//the current word
+	this.inputWord = inputWord;				//the correct word
 	this.wordLength = inputWord.length;		//the length of the word, including spaces, numbers etc
 	this.letterArray = [];					//an array of letters as objects
 	this.guessedWord = "";					//the word that the user has guessed, including blanks
@@ -25,29 +25,32 @@ var Word = function(inputWord) {
 
 		for (var i = 0; i < letterArrayLength; i++) {
 
-			// if userGuess matches the object in the letter array
+			// if userGuess matches the current letter from the letter array
 			if(userGuess.toUpperCase() === this.letterArray[i].letter) {
 
-				// if letter has already been guessed
+				// if letter has already been guessed, set alreadyGuessed to true
 				if(this.letterArray[i].guessed) {
 					alreadyGuessed = true;
 				}
 
 				// if letter has not already been guessed
 				else {
-					// if letter is in the word
+					// and if letter is in the word, set the letter to guessed and correctGuess to true
 					if(this.letterArray[i].inTheWord) {
 						this.letterArray[i].guessed = true;
 						correctGuess = true;
-					};
+					}; // note: if letter is not in the word, correctGuess will remain false
 				};
 			};
+			// note: if userGuess does not match the current letter,
+			// alreadyGuessed and correctGuess will both remain false
 
 		}; // end loop through letterArray
 
-		// if not correct guess, add the letter to the array and tell the user it is a wrong guess
+		// if not correct guess and not already guessed,
+		// add the letter to the array and tell the user it is a wrong guess
 		if(!correctGuess && !alreadyGuessed) {
-			var newLetter = new Letter(userGuess);
+			var newLetter = new Letter(userGuess.toUpperCase());
 			newLetter.inTheWord = false;
 			newLetter.guessed = true;
 			this.letterArray.push(newLetter);
@@ -64,7 +67,7 @@ var Word = function(inputWord) {
 			console.log("Correct!");
 		};
 
-		// update the word that has been guessed with blanks and guessed letters
+		// update the guessedWord with correctly guessed letters and blanks
 		this.updateGuess();
 
 	}; // end of makeGuess method
@@ -87,7 +90,6 @@ var Word = function(inputWord) {
 		console.log("\nMovie Name: " + this.guessedWord);
 
 	}; // end of updateGuess method
-
 
 }; // end of Word constructor
 
