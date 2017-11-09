@@ -3,7 +3,7 @@ Coding Boot Camp Week 11 Homework. Hangman game with a command line interface.
 
 The game uses the inquirer node package for user inputs.
 
-Run hangman.js to start the game.
+Run 'node Hangman.js' to start the game.
 
 The game uses two constructs;
 
