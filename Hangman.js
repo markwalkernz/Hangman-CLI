@@ -7,7 +7,7 @@ var inquirer = require("inquirer");
 // array of words to use for the hangman game
 var wordArray = ["MOONLIGHT", "SPOTLIGHT", "BIRDMAN", "TWELVE YEARS A SLAVE", "ARGO", "THE ARTIST", "THE KINGS SPEECH", "THE HURT LOCKER", "SLUMDOG MILLIONAIRE", "NO COUNTRY FOR OLD MEN", "THE DEPARTED", "CRASH", "MILLION DOLLAR BABY", "THE LORD OF THE RINGS", "CHICAGO", "A BEAUTIFUL MIND", "GLADIATOR", "AMERICAN BEAUTY", "SHAKESPEARE IN LOVE", "TITANIC", "THE ENGLISH PATIENT", "BRAVEHEART", "FORREST GUMP", "SCHINDLERS LIST", "UNFORGIVEN", "THE SILENCE OF THE LAMBS", "DANCES WITH WOLVES"];
 
-// reset the game variables and start a new game
+// function to reset the game variables and start a new game
 function playGame(){
 
 	var randomNumber = Math.floor(Math.random()*wordArray.length);
@@ -16,7 +16,7 @@ function playGame(){
 
 	var gameOver = false;
 
-	// play a round of the game, including recursion at the end if the word hasn't been guessed
+	// function to play a round of the game, including recursion at the end if the word hasn't been guessed
 	function playRound() {
 		inquirer
 		.prompt(
@@ -72,4 +72,6 @@ function playGame(){
 }; // end of playGame function
 
 // call the first game
+console.log("\nWelcome to Movie Hangman!\r")
+
 playGame();

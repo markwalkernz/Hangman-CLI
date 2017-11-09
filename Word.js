@@ -10,6 +10,7 @@ var Word = function(inputWord) {
 	this.letterArray = [];					//an array of letters as objects
 	this.guessedWord = "";					//the word that the user has guessed, including blanks
 	this.remainingGuesses = 10;				//initial number of guesses
+	this.incorrectGuesses = "";				//string of incorrect guesses
 
 	// put each letter of the word (including spaces) into letterArray as an object
 	for (var i = 0; i < inputWord.length; i++) {
@@ -56,7 +57,7 @@ var Word = function(inputWord) {
 			newLetter.guessed = true;
 			this.letterArray.push(newLetter);
 			this.remainingGuesses = this.remainingGuesses -1;
-			console.log("Sorry, that letter is not in the word.");
+			console.log("\nSorry, that letter is not in the word.");
 			console.log("Remaining Guesses: " + this.remainingGuesses);
 		};
 
@@ -72,6 +73,9 @@ var Word = function(inputWord) {
 
 		// update the guessedWord with correctly guessed letters and blanks
 		this.updateGuess();
+
+		// display incorrect guesses
+		this.updateIncorrect();
 
 	}; // end of makeGuess method
 
@@ -93,6 +97,24 @@ var Word = function(inputWord) {
 		console.log("\nMovie Name: " + this.guessedWord);
 
 	}; // end of updateGuess method
+
+	// method to display incorrect guesses
+	this.updateIncorrect = function() {
+		this.incorrectGuesses = "";
+		var letterArrayLength = this.letterArray.length;
+
+		for (var i = 0; i < letterArrayLength; i++) {
+			
+			// if the letter is not in the word then add it to the string	
+			if (!this.letterArray[i].inTheWord) {
+				this.incorrectGuesses = this.incorrectGuesses + this.letterArray[i].letter + " ";
+			};
+		};
+
+		console.log("\nIncorrect Guesses: " + this.incorrectGuesses+ "\r\n");
+
+	}; // end of updateIncorrect method
+
 
 }; // end of Word constructor
 
